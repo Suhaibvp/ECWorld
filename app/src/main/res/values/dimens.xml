@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="generic_small_padding">4dp</dimen>
+    <dimen name="generic_padding">8dp</dimen>
+    <dimen name="generic_large_padding">15dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="text_12_sp">12sp</dimen>
+    <dimen name="text_14_sp">14sp</dimen>
+    <dimen name="text_16_sp">16sp</dimen>
+    <dimen name="text_20_sp">20sp</dimen>
+    <dimen name="text_24_sp">24sp</dimen>
+    <dimen name="text_28_sp">28sp</dimen>
+    <dimen name="text_34_sp">34sp</dimen>
+    <dimen name="image_28dp">28dp</dimen>
+    <dimen name="image_42dp">42dp</dimen>
+    <dimen name="dimen_10sp">10sp</dimen>
+</resources>
