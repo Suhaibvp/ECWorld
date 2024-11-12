@@ -1,4 +1,4 @@
-package com.example.ecworld.ui.data
+package com.example.ecworld.ui.data.models
 
 data class BillItem(
     val name: String,

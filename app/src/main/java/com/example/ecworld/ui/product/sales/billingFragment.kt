@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ecworld.R
 import com.example.ecworld.databinding.FragmentBillingBinding
 import com.example.ecworld.ui.adapter.BillAdapter
-import com.example.ecworld.ui.data.BillItem
+import com.example.ecworld.ui.data.models.BillItem
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

@@ -1,37 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/product_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name"/>
-    <EditText
-        android:id="@+id/product_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/size"/>
-    <EditText
-        android:id="@+id/product_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/price"/>
-    <EditText
-        android:id="@+id/product_qty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/qty"/>
-    <EditText
-        android:id="@+id/product_creator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/creator"/>
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <Button
+        android:id="@+id/addProductButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Product" />
+
+    <LinearLayout
+        android:id="@+id/productListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+    <Button
+        android:id="@+id/saveProductsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecworld.R
-import com.example.ecworld.ui.data.BillItem
+import com.example.ecworld.ui.data.models.BillItem
 
 class BillAdapter(private val items: List<BillItem>) : RecyclerView.Adapter<BillAdapter.BillViewHolder>() {
 
