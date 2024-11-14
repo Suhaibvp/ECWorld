@@ -9,17 +9,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.room.Room
-import com.example.ecworld.data.dao.ProductDao
-import com.example.ecworld.data.dao.VariationDao
-import com.example.ecworld.ui.data.Db.AppDatabase
+
 //import com.example.ecworld.ui.mainpage.MainFragment
 import com.example.ecworld.ui.product.add.AddProductFragment
 import com.example.ecworld.ui.theme.ECWorldTheme
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var database: AppDatabase
-    private lateinit var productDao: ProductDao
-    private lateinit var variationDao: VariationDao
+
+
 
     private lateinit var navController: NavController
     private var addproductll:LinearLayout?=null
@@ -33,14 +30,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setContentView(R.layout.activity_main)
-        database = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "ecworld-db"
-        ).build()
 
-        // Get DAO instances
-        productDao = database.productDao()
-        variationDao = database.variationDao()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
 

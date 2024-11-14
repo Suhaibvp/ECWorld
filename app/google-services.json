@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226150959888",
+    "project_id": "ecworld-592b0",
+    "storage_bucket": "ecworld-592b0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226150959888:android:b7a4462c34c0a1a1d73395",
+        "android_client_info": {
+          "package_name": "com.example.ecworld"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUmktkww8jz12mK52HXBvD44Uag5dg6bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,23 +1,53 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/addProductButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Product" />
+
 
     <LinearLayout
         android:id="@+id/productListLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
-    <Button
+        android:layout_height="650dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit_login_selector"
+            android:hint="Enter product name"
+            android:padding="10dp"
+            android:paddingEnd="15dp"
+            android:textAlignment="center"
+            android:paddingStart="15dp"/>
+        <EditText
+            android:id="@+id/Size"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit_login_selector"
+            android:hint="Variations"
+            android:padding="10dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:textAlignment="center"/>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveProductsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"/>
-</LinearLayout>
+        android:layout_margin="@dimen/generic_padding"
+        android:background="@drawable/generic_btn_bg"
+        android:minHeight="48dp"
+        android:text="Save"
+        android:textAppearance="@style/Theme.DrSafe.Button"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

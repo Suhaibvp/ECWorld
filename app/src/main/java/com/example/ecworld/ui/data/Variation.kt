@@ -1,3 +1,4 @@
+// Variation.kt
 package com.example.ecworld.ui.data
 
 import androidx.room.Entity
@@ -8,16 +9,16 @@ import androidx.room.PrimaryKey
     tableName = "variations",
     foreignKeys = [ForeignKey(
         entity = Product::class,
-        parentColumns = arrayOf("productId"),
-        childColumns = arrayOf("productId"),
+        parentColumns = ["id"],
+        childColumns = ["productId"],
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class Variation(
-    @PrimaryKey(autoGenerate = true) val variationId: Long = 0,
-    var productId: Long,  // Foreign key referencing Product
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    val productId: Long,
     val quality: String,
     val size: String,
     val price: Double
-
 )
