@@ -15,6 +15,9 @@ import android.widget.Spinner
 import android.widget.Toast
 
 import android.graphics.Color
+import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +26,7 @@ import com.example.ecworld.R
 import com.example.ecworld.databinding.FragmentBillingBinding
 import com.example.ecworld.ui.adapter.BillAdapter
 import com.example.ecworld.ui.data.models.BillItem
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -56,6 +60,41 @@ class billingFragment :Fragment(){
         adapter = BillAdapter(items)
         billRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         billRecyclerView.adapter = adapter
+
+
+        val itemSpinner: Spinner = binding.appCompatSpinnerItems
+        val sizeSpinner: Spinner = binding.appCompatSpinnerSizes
+
+        fetchProductNames(
+            onSuccess = { productNames ->
+                val itemAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productNames)
+                itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                itemSpinner.adapter = itemAdapter
+            },
+            onError = { exception ->
+                Log.e("FirebaseError", "Error fetching product names: ${exception.message}")
+            }
+        )
+        // Add listener to fetch sizes when an item is selected
+        itemSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = itemSpinner.selectedItem.toString()
+                fetchSizesForItem(selectedItem,
+                    onSuccess = { sizes ->
+                        val sizeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sizes)
+                        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        sizeSpinner.adapter = sizeAdapter
+                    },
+                    onError = { exception ->
+                        Log.e("FirebaseError", "Error fetching sizes: ${exception.message}")
+                    }
+                )
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case when no item is selected if needed
+            }
+        }
 
         addButton.setOnClickListener {
             // Collect data from input fields and add to items list
@@ -98,6 +137,38 @@ class billingFragment :Fragment(){
         }
 
     }
+    fun fetchSizesForItem(itemName: String, onSuccess: (List<String>) -> Unit, onError: (Exception) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("products")
+            .whereEqualTo("productName", itemName)
+            .get()
+            .addOnSuccessListener { result ->
+                val sizes = result.documents.firstOrNull()?.get("sizes") as? List<String> ?: emptyList()
+                onSuccess(sizes) // Pass the list of sizes to the success callback
+            }
+            .addOnFailureListener { exception ->
+                onError(exception) // Pass the exception to the error callback
+            }
+    }
+
+    fun fetchProductNames(onSuccess: (List<String>) -> Unit, onError: (Exception) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("products")
+            .get()
+            .addOnSuccessListener { result ->
+                val productNames = result.map { document ->
+                    document.getString("productName") ?: "Unknown"
+                }
+                onSuccess(productNames) // Pass the list of names to the success callback
+            }
+            .addOnFailureListener { exception ->
+                onError(exception) // Pass the exception to the error callback
+            }
+    }
+
+
     private fun generatePDF(clientName: String,mobileNumber: String){
         val pdfDocument=PdfDocument()
         val pageInfo=PdfDocument.PageInfo.Builder(595,842,1).create()
@@ -188,64 +259,6 @@ class billingFragment :Fragment(){
             pdfDocument.close()
         }
     }
-//    private fun generatePDF(companyName: String, mobileNumber: String) {
-//        val pdfDocument = PdfDocument()
-//        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create()  // A4 size
-//        val page = pdfDocument.startPage(pageInfo)
-//
-//        val canvas = page.canvas
-//        val paint = Paint()
-//        paint.textSize = 16f
-//        paint.isFakeBoldText = true
-//
-//        // Draw Company Information
-//        canvas.drawText("Company: $companyName", 40f, 60f, paint)
-//        if (mobileNumber.isNotEmpty()) {
-//            canvas.drawText("Mobile: $mobileNumber", 40f, 90f, paint)
-//        }
-//
-//        // Add table headers with Size column
-//        paint.isFakeBoldText = true
-//        canvas.drawText("Item", 40f, 130f, paint)
-//        canvas.drawText("Size", 200f, 130f, paint)
-//        canvas.drawText("Qty", 300f, 130f, paint)
-//        canvas.drawText("Price", 400f, 130f, paint)
-//        canvas.drawText("Total", 500f, 130f, paint)
-//
-//        // Reset bold and set starting position for items
-//        paint.isFakeBoldText = false
-//        var yPosition = 160f
-//
-//        // Iterate through each item and draw it on the canvas
-//        items.forEach { item ->
-//            canvas.drawText(item.name, 40f, yPosition, paint)
-//            canvas.drawText(item.size, 200f, yPosition, paint)  // Display size
-//            canvas.drawText(item.quantity.toString(), 300f, yPosition, paint)
-//            canvas.drawText("%.2f".format(item.price), 400f, yPosition, paint)
-//            canvas.drawText("%.2f".format(item.quantity * item.price), 500f, yPosition, paint)
-//            yPosition += 30f
-//        }
-//
-//        pdfDocument.finishPage(page)
-//
-//        // Define file path in Download/ecworld directory
-//        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//        val ecworldDir = File(downloadsDir, "ecworld")
-//        if (!ecworldDir.exists()) {
-//            ecworldDir.mkdirs()  // Create directory if it doesn't exist
-//        }
-//        val file = File(ecworldDir, "Bill.pdf")
-//
-//        try {
-//            pdfDocument.writeTo(FileOutputStream(file))
-//            Toast.makeText(context, "PDF Saved at ${file.absolutePath}", Toast.LENGTH_LONG).show()
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//            Toast.makeText(context, "Failed to save PDF", Toast.LENGTH_SHORT).show()
-//        } finally {
-//            pdfDocument.close()
-//        }
-//    }
 
 
 
