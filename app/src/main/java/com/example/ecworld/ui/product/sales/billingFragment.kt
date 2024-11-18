@@ -15,9 +15,11 @@ import android.widget.Spinner
 import android.widget.Toast
 
 import android.graphics.Color
+import android.os.Build
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -169,7 +173,8 @@ class billingFragment :Fragment(){
     }
 
 
-    private fun generatePDF(clientName: String,mobileNumber: String){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun generatePDF(clientName: String, mobileNumber: String){
         val pdfDocument=PdfDocument()
         val pageInfo=PdfDocument.PageInfo.Builder(595,842,1).create()
         val page=pdfDocument.startPage(pageInfo)
@@ -181,7 +186,7 @@ class billingFragment :Fragment(){
         val Address1="Chemmaniyode, Melattur, Malappuram"
         val Address2="Kerala, India, 679325"
 //        val clientName="Test Client 1"
-        val clientPlace="Manjeri"
+        val clientPlace=""
         val clientMobNu="9894493002"
         val clientMessage="Thanks For Purchase"
         canvas.drawText(companyName,40f,40f,paint)
@@ -247,7 +252,11 @@ class billingFragment :Fragment(){
         if (!ecworldDir.exists()) {
             ecworldDir.mkdirs()  // Create directory if it doesn't exist
         }
-        val file = File(ecworldDir, "Bill.pdf")
+        val datetime=LocalDateTime.now()
+        val formater=DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
+        val formattedTime=datetime.format(formater)
+
+        val file = File(ecworldDir, "$clientName-$formattedTime.pdf")
 
         try {
             pdfDocument.writeTo(FileOutputStream(file))

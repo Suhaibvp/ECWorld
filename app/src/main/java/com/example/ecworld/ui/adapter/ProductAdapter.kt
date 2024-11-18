@@ -1,5 +1,6 @@
 package com.example.ecworld.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,28 +12,28 @@ import com.example.ecworld.ui.data.models.Product
 
 class ProductAdapter(
     private val products: List<Product>,
-    private val onPlayClick: (Product) -> Unit
-) : RecyclerView.Adapter<ProductAdapter.DVRViewHolder>() {
+    private val onEditClick: (Product) -> Unit
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class DVRViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dateTextView: TextView = itemView.findViewById(R.id.tvProductName)
-
-
-        val playImageView: ImageView = itemView.findViewById(R.id.ivPlay)
+    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val productNameTextView: TextView = itemView.findViewById(R.id.tvProductName)
+        val editImageView: ImageView = itemView.findViewById(R.id.ivEdit)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DVRViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_products, parent, false)
-        return DVRViewHolder(view)
+        return ProductViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DVRViewHolder, position: Int) {
-        val item = products[position]
-        holder.dateTextView.text = item.productName
-
-
-        holder.playImageView.setOnClickListener { onPlayClick(item) }
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        val product = products[position]
+        holder.productNameTextView.text = product.productName
+        holder.editImageView.setOnClickListener {
+            Log.d("LogEditMenu","edit popup triggered")
+            onEditClick(product)
+        }
     }
 
     override fun getItemCount(): Int = products.size
 }
+
