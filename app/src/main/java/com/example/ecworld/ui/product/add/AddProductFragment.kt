@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.ecworld.databinding.FragmentAddProductBinding
 
@@ -104,6 +105,7 @@ class AddProductFragment : Fragment() {
                     .addOnSuccessListener { documentReference ->
                         // Successfully added product
                         println("Product successfully added with ID: ${documentReference.id} and productId: $initialProductId")
+                        Toast.makeText(requireContext(),"Product Added Successfully",Toast.LENGTH_LONG).show()
 
                         // Create the counter document with the initial lastProductId
                         countersRef.set(hashMapOf("lastProductId" to initialProductId))

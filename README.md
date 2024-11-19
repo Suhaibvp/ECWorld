@@ -32,6 +32,33 @@ This project demonstrates expertise in **Kotlin**, **Firestore**, **RecyclerView
   - Easily access previous bills and review sales.
 
 ---
+### **Pages**
+- **Billing Page**:
+  - add items to bill
+  - add client name mobile number(optional) to bill
+  - generate bill
+    ![billing Page1](screenshots/Screenshot_20241120_005855_ECWorld.jpg "billing Page")
+    ![billing Page2](screenshots/Screenshot_20241120_005916_ECWorld.jpg "billing Page")
+    ![billing Page3](screenshots/Screenshot_20241120_010025_ECWorld.jpg "billing Page")
+    ![billing Page4](screenshots/Screenshot_20241120_010120_ECWorld.jpg "billing Page")
+    ![billing Page3](screenshots/Screenshot_20241120_010132_ECWorld.jpg "billing Page")
+
+- **Add Product Page**:
+  - add products
+    ![addProductPage](screenshots/Screenshot_20241120_005602_ECWorld.jpg "addProduct Page")
+  
+- **Inventory Page**:
+  - list products 
+  - delete projects
+  - edit project (needs to implement later)
+    ![inventory page](screenshots/Screenshot_20241120_010246_ECWorld.jpg "inventory Page")
+  
+- **Sales Page**:
+  - list all bills generated
+    ![sales page](screenshots/Screenshot_20241120_010314_ECWorld.jpg "sales Page")
+
+---
+
 
 ## **Technology Stack**
 - **Programming Language**: Kotlin
@@ -45,6 +72,9 @@ This project demonstrates expertise in **Kotlin**, **Firestore**, **RecyclerView
   - iText or similar library for PDF generation
 
 ---
+
+**Bill Sample Picture**
+![bill](screenshots/Screenshot_20241120_010357_OneDrive.jpg "bill")
 
 ## **Project Structure**
 The project is organized for modularity and scalability:

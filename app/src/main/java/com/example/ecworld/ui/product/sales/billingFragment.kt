@@ -55,6 +55,7 @@ class billingFragment :Fragment(){
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,9 +72,13 @@ class billingFragment :Fragment(){
 
         fetchProductNames(
             onSuccess = { productNames ->
-                val itemAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productNames)
-                itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                itemSpinner.adapter = itemAdapter
+                if (isAdded) { // Ensure the fragment is attached
+                    val itemAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productNames)
+                    itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    itemSpinner.adapter = itemAdapter
+                } else {
+                    Log.d("BillingFragment", "Fragment is not attached. Skipping setting item spinner.")
+                }
             },
             onError = { exception ->
                 Log.e("FirebaseError", "Error fetching product names: ${exception.message}")
