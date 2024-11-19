@@ -16,7 +16,7 @@ import com.example.ecworld.ui.adapter.ProductAdapter
 import com.example.ecworld.ui.data.models.Product
 import com.google.firebase.firestore.FirebaseFirestore
 
-class InventoryFragment : Fragment() {
+class inventoryFragment : Fragment() {
     private val products = mutableListOf<Product>()
     private var _binding: FragmentInventoryBinding? = null
     private val binding get() = _binding!!
@@ -63,13 +63,14 @@ class InventoryFragment : Fragment() {
                     product.productId = document.getLong("productId") ?: 0L
                     products.add(product)
                 }
-
+                Log.d("InventoryFragment", "Products loaded: ${products.size}")
                 productAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.e("InventoryFragment", "Error fetching products", exception)
             }
     }
+
 
     private fun showEditPopup(product: Product) {
         Log.d("LogEditMenu","edit popup triggered2")

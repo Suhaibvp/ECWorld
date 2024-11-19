@@ -52,15 +52,13 @@
 
 
 
-        <ImageView
-            android:id="@+id/ivEdit"
+        <TextView
+            android:id="@+id/tvProductId"
             android:layout_width="@dimen/image_28dp"
             android:layout_height="@dimen/image_28dp"
             android:layout_marginBottom="12dp"
             android:layout_weight="2"
             android:gravity="center"
-
-
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="parent"
 
@@ -76,7 +74,7 @@
             app:layout_constraintGuide_percent="0.8" />
 
         <ImageView
-            android:id="@+id/ivPlay"
+            android:id="@+id/ivDelete"
             android:layout_width="@dimen/image_28dp"
             android:layout_height="@dimen/image_28dp"
             android:layout_weight="2"
